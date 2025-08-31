@@ -1,0 +1,8 @@
+//
+//  PicoCalc Terminal
+//  Copyright Blair leduc. See LICENSE for details.
+//
+
+#pragma once
+
+#define PICOCALC_TERMINAL_VERSION "@PICOCALC_TERMINAL_VERSION@"

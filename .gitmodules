@@ -1,0 +1,3 @@
+[submodule "modules/picocalc-text-starter"]
+	path = modules/picocalc-text-starter
+	url = https://github.com/BlairLeduc/picocalc-text-starter.git

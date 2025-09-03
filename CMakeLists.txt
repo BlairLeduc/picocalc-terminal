@@ -23,7 +23,7 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pimoroni_pico_plus2_w_rp2350 CACHE STRING "Board type")
+set(PICO_BOARD pico2 CACHE STRING "Board type")
 set(PICOCALC_TERMINAL_VERSION "0.1" CACHE STRING "PicoCalc Terminal version")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
@@ -51,7 +51,10 @@ add_executable(picocalc-terminal
     modules/picocalc-text-starter/drivers/lcd.c
     modules/picocalc-text-starter/drivers/picocalc.c
     modules/picocalc-text-starter/drivers/southbridge.c
+    io.c
     main.c
+    menu.c
+    queues.c
     )
 
 pico_set_program_name(picocalc-terminal "picocalc-terminal")
@@ -64,10 +67,6 @@ pico_generate_pio_header(picocalc-terminal ${CMAKE_CURRENT_LIST_DIR}/modules/pic
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(picocalc-terminal 0)
 pico_enable_stdio_usb(picocalc-terminal 0)
-
-# Add the standard library to the build
-target_link_libraries(picocalc-terminal
-    pico_stdlib)
 
 # Add the standard include files to the build
 target_include_directories(picocalc-terminal PRIVATE
@@ -86,6 +85,7 @@ target_link_libraries(picocalc-terminal
     pico_stdlib
     pico_printf
     pico_multicore
+    pico_util
     hardware_gpio
     hardware_i2c
     hardware_spi

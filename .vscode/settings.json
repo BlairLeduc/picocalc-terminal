@@ -41,5 +41,5 @@
         "*.inc": "arm",
         "serial.h": "c"
     },
-    "cortex-debug.variableUseNaturalFormat": false
+    "cortex-debug.variableUseNaturalFormat": true
 }

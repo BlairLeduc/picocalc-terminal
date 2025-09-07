@@ -24,7 +24,7 @@ if (EXISTS ${picoVscode})
 endif()
 # ====================================================================================
 set(PICO_BOARD pimoroni_pico_plus2_w_rp2350 CACHE STRING "Board type")
-set(PICOCALC_TERMINAL_VERSION "0.1" CACHE STRING "PicoCalc Terminal version")
+set(PICOCALC_TERMINAL_VERSION "0.2" CACHE STRING "PicoCalc Terminal version")
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -52,6 +52,8 @@ add_executable(picocalc-terminal
     modules/picocalc-text-starter/drivers/picocalc.c
     modules/picocalc-text-starter/drivers/southbridge.c
     main.c
+    menu.c
+    terminal.c
     )
 
 pico_set_program_name(picocalc-terminal "picocalc-terminal")
@@ -84,13 +86,11 @@ configure_file(
 # Add any user requested libraries
 target_link_libraries(picocalc-terminal 
     pico_stdlib
-    pico_printf
     pico_multicore
     hardware_gpio
     hardware_i2c
     hardware_spi
     hardware_pio
-    hardware_clocks
     )
 
 pico_add_extra_outputs(picocalc-terminal)

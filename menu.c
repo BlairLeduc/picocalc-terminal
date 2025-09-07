@@ -10,6 +10,39 @@
 #include "terminal.h"
 #include "menu.h"
 
+static const menu_value_t uart_ports[] = {
+    {"USB-C", 0},
+    {"GPIO", 1},
+};
+
+static const menu_value_t baudrates[] = {
+    {"1200", 1200},
+    {"2400", 2400},
+    {"4800", 4800},
+    {"9600", 9600},
+    {"19200", 19200},
+    {"38400", 38400},
+    {"57600", 57600},
+    {"115200", 115200},
+    {"230400", 230400},
+};
+
+static const menu_value_t databits_options[] = {
+    {"7", 7},
+    {"8", 8},
+};
+
+static const menu_value_t parity_options[] = {
+    {"N", UART_PARITY_NONE},
+    {"E", UART_PARITY_EVEN},
+    {"O", UART_PARITY_ODD},
+};
+
+static const menu_value_t stopbits_options[] = {
+    {"1", 1},
+    {"2", 2},
+};
+
 static menu_item_t menu_items[] = {
     {"Port", &uart_port, uart_ports, sizeof(uart_ports) / sizeof(uart_ports[0]), 1},
     {"Baud Rate", &baudrate, baudrates, sizeof(baudrates) / sizeof(baudrates[0]), 7},
@@ -26,6 +59,7 @@ void menu(void)
         terminal_printf("\033[%d;10H%s: \033[%d;24H\033[%dm%6s\033[m",
                row, menu_items[i].name,
                row, i > 0 ? 0 : 4, menu_items[i].values[menu_items[i].selected].name);
+        *menu_items[i].value = menu_items[i].values[menu_items[i].selected].value;
         row += 2;
     }
 

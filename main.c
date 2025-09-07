@@ -24,11 +24,11 @@
 // Global variables
 bool user_interrupt = false;
 
-int uart_port = 1;
-int baudrate = 115200;
-int databits = 8;
-int stopbits = 1;
-uart_parity_t parity = UART_PARITY_NONE;
+int uart_port;
+int baudrate;
+int databits;
+int stopbits;
+uart_parity_t parity;
 
 volatile bool connected = false;
 
@@ -180,8 +180,8 @@ int main()
 
         menu();
 
-        uart_set_baudrate(uart_port ? uart1 : uart0, baudrate);
-        uart_set_format(uart_port ? uart1 : uart0, databits, stopbits, parity);
+        uart_set_baudrate(SELECTED_UART, baudrate);
+        uart_set_format(SELECTED_UART, databits, stopbits, parity);
 
         terminal_printf("\033[?4264h\033[2J\033[H\033[mConnected at %s %d %d%s%d",
                  uart_port ? "GPIO" : "USB-C",

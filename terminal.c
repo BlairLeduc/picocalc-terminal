@@ -29,9 +29,9 @@ bool repeating_timer_callback(struct repeating_timer *t)
 
     if (connected)
     {
-        while (!(uart_get_hw(uart_port ? uart1 : uart0)->fr & UART_UARTFR_RXFE_BITS))
+        while (!(uart_get_hw(SELECTED_UART)->fr & UART_UARTFR_RXFE_BITS))
         {
-            ch = uart_get_hw(uart_port ? uart1 : uart0)->dr & 0xFF;
+            ch = uart_get_hw(SELECTED_UART)->dr & 0xFF;
             if (ch)
             {
                 serial_addchar(ch);
@@ -84,7 +84,7 @@ bool serial_char_available(void)
 // 
 
 void terminal_printf(const char *fmt, ...) {
-    char buf[256]; // Adjust size as needed
+    char buf[TERMINAL_PRINTF_BUFFER_SIZE];
     va_list args;
     va_start(args, fmt);
     int len = vsnprintf(buf, sizeof(buf), fmt, args);
@@ -112,14 +112,14 @@ char terminal_getchar() {
 
 void serial_putc(char ch)
 {
-    uart_putc_raw(uart_port ? uart1 : uart0, ch);
+    uart_putc_raw(SELECTED_UART, ch);
 }
 
 void serial_puts(const char *str)
 {
     while (*str)
     {
-        uart_putc_raw(uart_port ? uart1 : uart0, *str++);
+        uart_putc_raw(SELECTED_UART, *str++);
     }
 }
 

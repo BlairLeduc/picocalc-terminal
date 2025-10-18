@@ -176,7 +176,7 @@ int main()
 
         terminal_printf("\033[29;15HGPIO: GP4=TX, GP5=RX, 3.3V ONLY!");
 
-        terminal_printf("\033[32;8HCopyright Blair Leduc. See LICENSE for details.\033[H\033[?4264l");
+        terminal_printf("\033[32;6HCopyright 2025 Blair Leduc. See LICENSE for details.\033[H\033[?4264l");
 
         menu();
 
